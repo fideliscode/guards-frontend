@@ -1,0 +1,121 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="mt-2"><h4>{{guard.name | titlecase}}</h4></div>
+			<hr>
+			<div class="card ">
+				  <div class="card-header">
+				    <ul class="nav nav-pills card-header-pills">
+				      <li class="nav-item">
+				        <a class="btn btn-outline-dark btn-sm mr-2" (click)="onGuard()">Guard
+
+				    </a>
+				      </li>
+				       <li class="nav-item">
+				        <a class="btn btn-outline-dark btn-sm mr-2" (click)="onGetduties()">Duties</a>
+				      </li>
+				      <li class="nav-item">
+				        <a class="btn btn-outline-dark btn-sm" (click)="onAddDuty()">Add duty</a>
+				      </li>
+				      <li class="nav-item">
+				        <a class="nav-link " href="#"></a>
+				      </li>
+				    </ul>
+				  </div>
+
+
+				  <div class="card-body" *ngIf="ongetGuard">
+				   <div>name:<span class="font-weight-bold"> {{guard.name |titlecase}}</span></div>
+				   <div>address: <span class="font-weight-bold">{{guard.address | titlecase}}</span></div>
+				   <div>Age:<span class="font-weight-bold">{{guard.age | titlecase}}</span></div>
+				   <div>Building:<span class="font-weight-bold">{{building.name | titlecase}}</span></div>
+				   <button class="btn btn-outline-primary btn-sm mt-2" (click)="onEditGuard()" *ngIf="!editguard">Edit guard</button>
+				   <div class="card-footer mt-3" *ngIf="editguard">
+				   	 <div>
+		              <label>Name</label> 
+		              <input class="form-control w-50" type="text" [(ngModel)]="editname">   
+		              </div>
+		
+		              <div> 
+		              <label>Address</label>
+		              <input class="form-control w-50" type="text" [(ngModel)]="editaddress">
+				   </div>
+				   <div> 
+		              <label>Age</label>
+		              <input class="form-control w-50" type="integer" [(ngModel)]="editage">
+				   </div>
+
+				   <div>
+				   	 <label for="Building">Building </label>
+                     <select  id="Building" class="form-control w-50" name="selectedBuilding" [(ngModel)]="selectedBuilding">
+                       <option *ngFor="let thebuilding of buildings" [ngValue]="thebuilding.id" >{{thebuilding.name}}</option>        
+                      </select>
+
+				   </div>
+				   <button class="btn btn-outline-primary btn-sm mt-3 mr-2" (click)="onCancel()">Cancel</button>
+				   <button class="btn btn-outline-primary btn-sm mt-3 " (click)="onSave()">Save</button>
+				  </div>
+				</div>
+
+				  <!-- duties here -->
+			
+				<div class="card-body" *ngIf="ongetduty">
+	              <table class="table table-hover  table-bordered">
+	                <thead>
+	                  <tr>
+	                    <th scope="col">#</th>
+	                    <th scope="col">Time in</th>
+	                    <th scope="col">Time out</th>
+	                    <th scope="col">Instructions</th>
+	                <th scope="col">Actions</th> 
+	                  </tr>
+	                </thead>
+	                 <tbody *ngFor="let duty of duties; let i=index" >
+	                  <tr (click)="onSelect(guard)">
+	                    <th scope="row">{{i+1}}</th>
+	                    <td>{{duty.time_in}}</td>
+	                    <td>{{duty.time_out}}</td>
+	                    <td>{{duty.instructions}}</td>
+	                    <td><button class="btn btn-outline-primary btn-sm">edit</button></td>    
+	                  </tr>
+	                 
+	                </tbody>
+	              </table>
+	          </div>
+	          <!-- add duty here -->
+
+           <div class="card-body" *ngIf="addDuty">
+      <!-- Default form subscription -->
+            <form   #f="ngForm" (ngSubmit)="onSubmitDuty(f)">
+
+              <div class="h4 mb-3 ">Add Duty</div>
+
+
+
+   <dl-date-time-picker startView="day" maxView="year"  minView="minute"   minuteStep="5"  [(ngModel)]="selectedDate">
+</dl-date-time-picker>
+<p>{{selectedDate}}</p>
+  
+              <label for="time_in">Time in </label>
+              <input type="date"  name="time_in" class="form-control w-50 mb-4" >
+              <label for="time_out">Time out </label>
+              <input type="date"  class="form-control w-50 mb-4" >
+              <label for="instructions">Instructions </label>
+              <input type="integer"  class="form-control w-50 mb-4" >
+          
+              <button class="btn btn-outline-primary btn-sm mt-4"  type="submit">Register</button>
+
+
+            </form>
+<!-- Default form subscription -->
+           
+          </div>
+
+
+
+
+
+			</div>
+		</div>
+	</div></div>
+

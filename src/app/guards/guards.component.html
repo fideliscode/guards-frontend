@@ -1,0 +1,77 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="mt-2 "><h3>Guards</h3></div><hr>
+      <div class="card">
+          <div class="card-header">
+            <ul class="nav nav-pills card-header-pills">
+              <li class="nav-item">
+                <a class="btn btn-outline-dark btn-sm mr-2" (click)="onGuards()">Guards</a>
+              </li>
+            
+              <li class="nav-item">
+                <a class="btn btn-outline-dark btn-sm " (click)="onAddguard()">Add guard</a>
+              </li>
+            </ul>
+          </div>
+          <div class="card-body" *ngIf="!addGuard">
+              <table class="table table-hover  table-border ">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Actions</th>  
+                  </tr>
+                </thead>
+                 <tbody *ngFor="let guard of guards; let i=index" >
+                  <tr (click)="onSelect(guard)">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{guard.name}}</td>
+                    <td>{{guard.address}}</td>
+                    <td>{{guard.age}}</td>
+                    <td><button class="btn btn-outline-success btn-sm" (click)="onSelect(guard)">view guard</button> </td>    
+                  </tr>
+                 
+                </tbody>
+              </table>
+          </div>
+
+<!-- add guards here -->
+
+     <div class="card-body" *ngIf="addGuard">
+      <!-- Default form subscription -->
+            <form   #f="ngForm" (ngSubmit)="onSubmit(f)">
+
+              <div class="h4 mb-3 ">Add Guard</div>
+
+         
+              <input type="text" id="defaultSubscriptionFormPassword" class="form-control w-50 mb-4" placeholder="Name">
+              <input type="text" id="defaultSubscriptionFormEmail" class="form-control w-50 mb-4" placeholder="Address">
+
+              <input type="integer" id="defaultSubscriptionFormEmail" class="form-control w-50 mb-4" placeholder="Age">
+            
+             <label for="Building">Building </label>
+                  <select  id="Building" class="form-control w-50" name="selectedBuilding" [(ngModel)]="selectedBuilding">
+                   <option *ngFor="let thebuilding of buildings" [ngValue]="thebuilding.id">{{thebuilding.name}}</option>        
+              </select>
+                   
+
+              <!-- Sign in button -->
+              <button class="btn btn-outline-primary btn-sm mt-4"  type="submit">Register</button>
+
+
+            </form>
+<!-- Default form subscription -->
+           
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
